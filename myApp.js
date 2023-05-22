@@ -64,13 +64,13 @@ const findPeopleByName = (personName, done) => {
   done(null /*, data*/);
 };
 
-findPeopleByName('Mary', (err,data)=> {
-  if(err){
-    console.log(err)
-  }else{
-    console.log(data)
-  }
-})
+// findPeopleByName('Mary', (err,data)=> {
+//   if(err){
+//     console.log(err)
+//   }else{
+//     console.log(data)
+//   }
+// })
 
 //////////////////////////////////////////////////////////////////
 //////En promise au lieu de callback pour tester
@@ -97,8 +97,22 @@ findPeopleByName('Mary', (err,data)=> {
 
 
 const findOneByFood = (food, done) => {
+  Person.findOne({favoriteFoods: food}, (err,data) => {
+    if(err){
+      return console.log(err)
+    }else{
+      done(null, data)
+    }
+  })
   done(null /*, data*/);
 };
+findOneByFood('poutine', (err,data) => {
+  if(err){
+    console.log(err)
+  }else{
+    console.log(data)
+  }
+})
 
 const findPersonById = (personId, done) => {
   done(null /*, data*/);
