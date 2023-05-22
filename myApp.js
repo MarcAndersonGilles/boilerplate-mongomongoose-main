@@ -23,7 +23,7 @@ const createAndSavePerson = (done) => {
   })
   newUser.save((err, data) => {
     if (err) {
-      return console.log(err)
+      console.log(err)
     } else {
       done(null, data);
     }
@@ -61,7 +61,7 @@ const findPeopleByName = (personName, done) => {
       done(null, data)
     }
   })
-  done(null /*, data*/);
+  
 };
 
 // findPeopleByName('Mary', (err,data)=> {
@@ -104,19 +104,33 @@ const findOneByFood = (food, done) => {
       done(null, data)
     }
   })
-  done(null /*, data*/);
+  
 };
-findOneByFood('poutine', (err,data) => {
+// findOneByFood('poutine', (err,data) => {
+//   if(err){
+//     console.log(err)
+//   }else{
+//     console.log(data)
+//   }
+// })
+
+const findPersonById = (personId, done) => {
+  Person.findById({_id:personId}, (err,data) => {
+    if(err){
+    return console.log(err)
+    }else{
+      done(null, data)
+    }
+  })
+ 
+};
+findPersonById('646be3be46298c4ab45d9b6d', (err,data)=> {
   if(err){
     console.log(err)
   }else{
     console.log(data)
   }
 })
-
-const findPersonById = (personId, done) => {
-  done(null /*, data*/);
-};
 
 const findEditThenSave = (personId, done) => {
   const foodToAdd = "hamburger";
