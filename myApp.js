@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const personSchema = new mongoose.Schema({
-  name : {type: String, required:true},
+  name: { type: String, required: true },
   age: Number,
   favoriteFoods: [String]
 })
@@ -21,29 +21,29 @@ const createAndSavePerson = (done) => {
     age: 37,
     favoriteFoods: ['pizza', 'pasta', 'salad']
   })
-  newUser.save((err,data) => {
-    if(err){
+  newUser.save((err, data) => {
+    if (err) {
       return console.log(err)
-    }else{
-      done(null , data);
+    } else {
+      done(null, data);
     }
   });
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
-   arrayOfPeople = [
-    {name: 'Kyle', age: 37, favoriteFoods: ['ice cream', 'poutine', 'salad']},
-    {name: 'Mary', age: 25, favoriteFoods: ['sushi', 'pasta', 'fries']},
-    {name: 'Bob', age: 42, favoriteFoods: ['hamburger', 'pasta', 'tacos']},
+  arrayOfPeople = [
+    { name: 'Kyle', age: 37, favoriteFoods: ['ice cream', 'poutine', 'salad'] },
+    { name: 'Mary', age: 25, favoriteFoods: ['sushi', 'pasta', 'fries'] },
+    { name: 'Bob', age: 42, favoriteFoods: ['hamburger', 'pasta', 'tacos'] },
   ]
 
-  Person.create(arrayOfPeople,(err,data) =>{
-    if(err){
-     return console.log(err)
-    }else{
+  Person.create(arrayOfPeople, (err, data) => {
+    if (err) {
+      return console.log(err)
+    } else {
       done(null, data)
     }
-  }); 
+  });
 };
 // createManyPeople([],(err,data)=> {
 //   if(err){
@@ -54,8 +54,47 @@ const createManyPeople = (arrayOfPeople, done) => {
 // })
 
 const findPeopleByName = (personName, done) => {
+  Person.find({ name: personName }, (err, data) => {
+    if (err) {
+      return console.log(err)
+    } else {
+      done(null, data)
+    }
+  })
   done(null /*, data*/);
 };
+
+findPeopleByName('Mary', (err,data)=> {
+  if(err){
+    console.log(err)
+  }else{
+    console.log(data)
+  }
+})
+
+//////////////////////////////////////////////////////////////////
+//////En promise au lieu de callback pour tester
+
+// const findPeopleByName = (personName, done) => {
+//   return new Promise((resolve, reject) => {
+//     Person.find({ name: personName })
+//       .exec()
+//       .then((data) => {
+//         resolve(data)
+//       })
+//       .catch((err) => {
+//         reject(err)
+//       })
+//   })
+// }
+// findPeopleByName('Bob')
+//   .then((data) => {
+//     console.log(data)
+//   }).catch((err) => {
+//     console.log(err)
+//   })
+
+
 
 const findOneByFood = (food, done) => {
   done(null /*, data*/);
