@@ -153,19 +153,33 @@ const findEditThenSave = (personId, done) => {
 
   done(null /*, data*/);
 };
-findEditThenSave('646be3be46298c4ab45d9b6d', (err, data) => {
-  if (err) {
-    console.log(err)
-  } else {
-    console.log(data)
-  }
-})
+// findEditThenSave('646be3be46298c4ab45d9b6d', (err, data) => {
+//   if (err) {
+//     console.log(err)
+//   } else {
+//     console.log(data)
+//   }
+// })
 
 const findAndUpdate = (personName, done) => {
+  Person.findOneAndUpdate({name:personName}, {age:20}, {new:true}, (err,data)=>{
+    if(err){
+      console.log(err)
+    }else{
+      console.log(data)
+    }
+  })
   const ageToSet = 20;
 
   done(null /*, data*/);
 };
+findAndUpdate("Mary", (err,data)=>{
+  if(err){
+    console.log(err)
+  }else{
+    console.log(data)
+  }
+})
 
 const removeById = (personId, done) => {
   done(null /*, data*/);
