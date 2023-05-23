@@ -146,7 +146,7 @@ const findEditThenSave = (personId, done) => {
           console.log(data)
         }
       })
-     
+
     }
   })
   const foodToAdd = "hamburger";
@@ -162,10 +162,10 @@ const findEditThenSave = (personId, done) => {
 // })
 
 const findAndUpdate = (personName, done) => {
-  Person.findOneAndUpdate({name:personName}, {age:20}, {new:true}, (err,data)=>{
-    if(err){
+  Person.findOneAndUpdate({ name: personName }, { age: 20 }, { new: true }, (err, data) => {
+    if (err) {
       console.log(err)
-    }else{
+    } else {
       console.log(data)
     }
   })
@@ -182,10 +182,10 @@ const findAndUpdate = (personName, done) => {
 // })
 
 const removeById = (personId, done) => {
-  Person.findByIdAndRemove({_id:personId}, (err,data)=> {
-    if(err){
+  Person.findByIdAndRemove({ _id: personId }, (err, data) => {
+    if (err) {
       console.log(err)
-    }else{
+    } else {
       console.log(data)
     }
 
@@ -203,30 +203,51 @@ const removeById = (personId, done) => {
 //Remove all with the condition like same name(All name with John will be removed)
 const removeManyPeople = (done) => {
   const nameToRemove = "John";
-  Person.remove({name:nameToRemove}, (err,data) => {
-    if(err){
-     return console.log(err)
-    }else{
-      done(null ,data);
+  Person.remove({ name: nameToRemove }, (err, data) => {
+    if (err) {
+      return console.log(err)
+    } else {
+      done(null, data);
     }
   })
-  
 
-  
+
+
 };
-removeManyPeople((err,data)=> {
-  if(err){
+// removeManyPeople((err,data)=> {
+//   if(err){
+//     console.log(err)
+//   }else{
+//     console.log(data)
+//   }
+// })
+
+// TO store for later use of the query
+const queryChain = (done) => {
+  const foodToSearch = "hamburger";
+  let findQueryOfFood = Person.find({ favoriteFoods: foodToSearch })
+  findQueryOfFood
+    .sort({age:1}) //sort 1 du premier au dernier sort -1 du dernier au dernier
+    .limit(2) //Limit 2
+    .select({ age: 42 }) //Select tous ce qui ont 42 ans
+    .exec((err, data) => { // callback du resultat
+      if (err) {
+        console.log(err)
+      } else {
+        done(null, data);
+      }
+    })
+
+
+
+};
+queryChain((err, data) => { //appel la fonction avec callback du resultat
+  if (err) {
     console.log(err)
-  }else{
+  } else {
     console.log(data)
   }
 })
-
-const queryChain = (done) => {
-  const foodToSearch = "burrito";
-
-  done(null /*, data*/);
-};
 
 /** **Well Done !!**
 /* You completed these challenges, let's go celebrate !
