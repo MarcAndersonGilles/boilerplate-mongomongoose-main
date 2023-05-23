@@ -61,7 +61,7 @@ const findPeopleByName = (personName, done) => {
       done(null, data)
     }
   })
-  
+
 };
 
 // findPeopleByName('Mary', (err,data)=> {
@@ -97,14 +97,14 @@ const findPeopleByName = (personName, done) => {
 
 
 const findOneByFood = (food, done) => {
-  Person.findOne({favoriteFoods: food}, (err,data) => {
-    if(err){
+  Person.findOne({ favoriteFoods: food }, (err, data) => {
+    if (err) {
       return console.log(err)
-    }else{
+    } else {
       done(null, data)
     }
   })
-  
+
 };
 // findOneByFood('poutine', (err,data) => {
 //   if(err){
@@ -115,28 +115,51 @@ const findOneByFood = (food, done) => {
 // })
 
 const findPersonById = (personId, done) => {
-  Person.findById({_id:personId}, (err,data) => {
-    if(err){
-    return console.log(err)
-    }else{
+  Person.findById({ _id: personId }, (err, data) => {
+    if (err) {
+      return console.log(err)
+    } else {
       done(null, data)
     }
   })
- 
+
 };
-findPersonById('646be3be46298c4ab45d9b6d', (err,data)=> {
-  if(err){
-    console.log(err)
-  }else{
-    console.log(data)
-  }
-})
+// findPersonById('646be3be46298c4ab45d9b6d', (err,data)=> {
+//   if(err){
+//     console.log(err)
+//   }else{
+//     console.log(data)
+//   }
+// })
 
 const findEditThenSave = (personId, done) => {
+  Person.findById({ _id: personId }, (err, data) => {
+    if (err) {
+      return console.log(err)
+    } else {
+      data.favoriteFoods.push('cheese')
+
+      data.save((err, data) => {
+        if (err) {
+          console.log(err)
+        } else {
+          console.log(data)
+        }
+      })
+     
+    }
+  })
   const foodToAdd = "hamburger";
 
   done(null /*, data*/);
 };
+findEditThenSave('646be3be46298c4ab45d9b6d', (err, data) => {
+  if (err) {
+    console.log(err)
+  } else {
+    console.log(data)
+  }
+})
 
 const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
