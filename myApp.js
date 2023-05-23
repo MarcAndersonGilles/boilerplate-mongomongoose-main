@@ -192,19 +192,35 @@ const removeById = (personId, done) => {
   })
   done(null /*, data*/);
 };
-removeById('646be3be46298c4ab45d9b6d', (err,data)=> {
+// removeById('646be3be46298c4ab45d9b6d', (err,data)=> {
+//   if(err){
+//     console.log(err)
+//   }else{
+//     console.log(data)
+//   }
+// })
+
+//Remove all with the condition like same name(All name with John will be removed)
+const removeManyPeople = (done) => {
+  const nameToRemove = "John";
+  Person.remove({name:nameToRemove}, (err,data) => {
+    if(err){
+     return console.log(err)
+    }else{
+      done(null ,data);
+    }
+  })
+  
+
+  
+};
+removeManyPeople((err,data)=> {
   if(err){
     console.log(err)
   }else{
     console.log(data)
   }
 })
-
-const removeManyPeople = (done) => {
-  const nameToRemove = "Mary";
-
-  done(null /*, data*/);
-};
 
 const queryChain = (done) => {
   const foodToSearch = "burrito";
