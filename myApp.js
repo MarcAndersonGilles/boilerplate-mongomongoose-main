@@ -173,17 +173,32 @@ const findAndUpdate = (personName, done) => {
 
   done(null /*, data*/);
 };
-findAndUpdate("Mary", (err,data)=>{
+// findAndUpdate("Mary", (err,data)=>{
+//   if(err){
+//     console.log(err)
+//   }else{
+//     console.log(data)
+//   }
+// })
+
+const removeById = (personId, done) => {
+  Person.findByIdAndRemove({_id:personId}, (err,data)=> {
+    if(err){
+      console.log(err)
+    }else{
+      console.log(data)
+    }
+
+  })
+  done(null /*, data*/);
+};
+removeById('646be3be46298c4ab45d9b6d', (err,data)=> {
   if(err){
     console.log(err)
   }else{
     console.log(data)
   }
 })
-
-const removeById = (personId, done) => {
-  done(null /*, data*/);
-};
 
 const removeManyPeople = (done) => {
   const nameToRemove = "Mary";
